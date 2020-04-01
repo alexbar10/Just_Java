@@ -10,6 +10,8 @@ import java.text.NumberFormat
  * This app displays an order form to order coffee
  */
 class MainActivity : AppCompatActivity() {
+    // Global variable for quantity of coffees
+    private var numberOfCoffees = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +22,7 @@ class MainActivity : AppCompatActivity() {
      * This method is called when the order button is clicked
      */
     fun submitOrder(view: View) {
-        display(2)
-        displayPrice(2 * 5)
+        displayPrice(numberOfCoffees * 5)
     }
 
     /**
@@ -38,5 +39,21 @@ class MainActivity : AppCompatActivity() {
     private fun displayPrice(price: Int) {
         val priceTextView = findViewById<TextView>(R.id.price_text_view)
         priceTextView.text = NumberFormat.getCurrencyInstance().format(price)
+    }
+
+    /**
+     * Increment the quantity of coffees
+     */
+    fun increment(view: View) {
+        numberOfCoffees += 1
+        display(numberOfCoffees)
+    }
+
+    /**
+     * Decrement the quantity of coffees
+     */
+    fun decrement(view: View) {
+        numberOfCoffees -= 1
+        display(numberOfCoffees)
     }
 }
