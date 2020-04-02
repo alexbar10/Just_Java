@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity() {
      * This method is called when the order button is clicked
      */
     fun submitOrder(view: View) {
-        displayPrice(numberOfCoffees * 5)
+        var priceMessage = "That would be $" + numberOfCoffees * 5 + " please"
+        priceMessage += "\nThank you!"
+        displayMessage(priceMessage)
     }
 
     /**
@@ -55,5 +57,13 @@ class MainActivity : AppCompatActivity() {
     fun decrement(view: View) {
         numberOfCoffees -= 1
         display(numberOfCoffees)
+    }
+
+    /**
+     * This method display the given text on the screen
+     */
+    private fun displayMessage(message: String) {
+        val priceTextView = findViewById<TextView>(R.id.price_text_view)
+        priceTextView.text = message
     }
 }
