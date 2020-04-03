@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
      * This method is called when the order button is clicked
      */
     fun submitOrder(view: View) {
-        var priceMessage = "That would be $" + numberOfCoffees * 5 + " please"
+        val price = calculatePrice()
+        var priceMessage = "That would be $$price please"
         priceMessage += "\nThank you!"
         displayMessage(priceMessage)
     }
@@ -30,9 +31,9 @@ class MainActivity : AppCompatActivity() {
     /**
      * This method displays the given quantity value on the screen
      */
-    private fun display(value: Int) {
+    private fun displayQuantity(number: Int) {
         val quantityTextView = findViewById<TextView>(R.id.quantity_text_view)
-        quantityTextView.text = value.toString()
+        quantityTextView.text = number.toString()
     }
 
     /**
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun increment(view: View) {
         numberOfCoffees += 1
-        display(numberOfCoffees)
+        displayQuantity(numberOfCoffees)
     }
 
     /**
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun decrement(view: View) {
         numberOfCoffees -= 1
-        display(numberOfCoffees)
+        displayQuantity(numberOfCoffees)
     }
 
     /**
@@ -65,5 +66,14 @@ class MainActivity : AppCompatActivity() {
     private fun displayMessage(message: String) {
         val priceTextView = findViewById<TextView>(R.id.price_text_view)
         priceTextView.text = message
+    }
+
+    /**
+     * Calculates the price of the order based on the current quantity
+     *
+     * @return the total price
+     */
+    private fun calculatePrice() : Int {
+        return numberOfCoffees * 5
     }
 }
