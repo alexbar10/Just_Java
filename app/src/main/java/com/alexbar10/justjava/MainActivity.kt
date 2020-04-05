@@ -3,6 +3,7 @@ package com.alexbar10.justjava
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.NumberFormat
@@ -12,7 +13,7 @@ import java.text.NumberFormat
  */
 class MainActivity : AppCompatActivity() {
     // Global variable for quantity of coffees
-    private var numberOfCoffees = 2
+    private var numberOfCoffees = 98
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,16 +48,24 @@ class MainActivity : AppCompatActivity() {
      * Increment the quantity of coffees
      */
     fun increment(view: View) {
-        numberOfCoffees += 1
-        displayQuantity(numberOfCoffees)
+        if (numberOfCoffees < 100) {
+            numberOfCoffees += 1
+            displayQuantity(numberOfCoffees)
+        } else {
+            Toast.makeText(this, "Can not serve more than 100 coffees", Toast.LENGTH_LONG).show()
+        }
     }
 
     /**
      * Decrement the quantity of coffees
      */
     fun decrement(view: View) {
-        numberOfCoffees -= 1
-        displayQuantity(numberOfCoffees)
+        if (numberOfCoffees > 1) {
+            numberOfCoffees -= 1
+            displayQuantity(numberOfCoffees)
+        } else {
+            Toast.makeText(this, "Can not serve less than one coffee", Toast.LENGTH_LONG).show()
+        }
     }
 
     /**
