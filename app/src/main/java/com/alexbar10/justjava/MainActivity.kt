@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
      * This method is called when the order button is clicked
      */
     fun submitOrder(view: View) {
-        val price = calculatePrice()
-        displayMessage(createOrderSummary(price, whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked))
+        val price = calculatePrice(whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked)
+        displayMessage(createOrderSummary(price, whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked, name_edit_text.text.toString()))
     }
 
     /**
@@ -69,11 +69,20 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Calculates the price of the order based on the current quantity
-     *
+     * @param addWhippedCream is whether or not the user wants whipper cream topping
+     * @param addChocolate is whether or not the user wants chocolate topping
      * @return the total price
      */
-    private fun calculatePrice() : Int {
-        return numberOfCoffees * 5
+    private fun calculatePrice(addWhippedCream: Boolean, addChocolate: Boolean) : Int {
+        var extraWhippedCream = 0
+        var extraChocolate = 0
+        if (addWhippedCream) {
+            extraWhippedCream = 1
+        }
+        if (addChocolate) {
+            extraChocolate = 2
+        }
+        return numberOfCoffees * (5 + extraWhippedCream + extraChocolate)
     }
 
     /**
@@ -83,7 +92,7 @@ class MainActivity : AppCompatActivity() {
      * @param addChocolate is whether or not the user wants chocolate topping
      * @return the order summary
      */
-    private fun createOrderSummary(price: Int, addWhippedCream: Boolean, addChocolate: Boolean): String {
-        return "Name: Mr. Bla bla\nAdd whipped cream? $addWhippedCream \nAdd chocolate? $addChocolate \nQuantity: $numberOfCoffees\nTotal: $$price\nThank you!"
+    private fun createOrderSummary(price: Int, addWhippedCream: Boolean, addChocolate: Boolean, name: String): String {
+        return "Name: $name\nAdd whipped cream? $addWhippedCream \nAdd chocolate? $addChocolate \nQuantity: $numberOfCoffees\nTotal: $$price\nThank you!"
     }
 }
