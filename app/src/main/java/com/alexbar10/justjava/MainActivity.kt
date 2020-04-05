@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.NumberFormat
 
 /**
@@ -23,9 +24,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun submitOrder(view: View) {
         val price = calculatePrice()
-        var priceMessage = "That would be $$price please"
-        priceMessage += "\nThank you!"
-        displayMessage(priceMessage)
+        displayMessage(createOrderSummary(price, whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked))
     }
 
     /**
@@ -75,5 +74,16 @@ class MainActivity : AppCompatActivity() {
      */
     private fun calculatePrice() : Int {
         return numberOfCoffees * 5
+    }
+
+    /**
+     * Order summary
+     * @param price the price for the order
+     * @param addWhippedCream is whether or not the user wants whipped cream topping
+     * @param addChocolate is whether or not the user wants chocolate topping
+     * @return the order summary
+     */
+    private fun createOrderSummary(price: Int, addWhippedCream: Boolean, addChocolate: Boolean): String {
+        return "Name: Mr. Bla bla\nAdd whipped cream? $addWhippedCream \nAdd chocolate? $addChocolate \nQuantity: $numberOfCoffees\nTotal: $$price\nThank you!"
     }
 }
