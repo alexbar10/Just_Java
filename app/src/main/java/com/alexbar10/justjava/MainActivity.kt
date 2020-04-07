@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun submitOrder(view: View) {
         val price = calculatePrice(whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked)
-        val subject = "JustJava order for ${name_edit_text.text}"
+        val subject = getString(R.string.subject_email_order, name_edit_text.text)
         val text = createOrderSummary(price, whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked, name_edit_text.text.toString())
 
         sendOrderToEmailWith(subject, text)
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
         } else {
-            Toast.makeText(this, "Unable to send email", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.message_unable_send_email), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             numberOfCoffees += 1
             displayQuantity(numberOfCoffees)
         } else {
-            Toast.makeText(this, "Can not serve more than 100 coffees", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.message_increment_max_error), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             numberOfCoffees -= 1
             displayQuantity(numberOfCoffees)
         } else {
-            Toast.makeText(this, "Can not serve less than one coffee", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.message_increment_min_error), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -103,6 +103,6 @@ class MainActivity : AppCompatActivity() {
      * @return the order summary
      */
     private fun createOrderSummary(price: Int, addWhippedCream: Boolean, addChocolate: Boolean, name: String): String {
-        return "Name: $name\nAdd whipped cream? $addWhippedCream \nAdd chocolate? $addChocolate \nQuantity: $numberOfCoffees\nTotal: $$price\nThank you!"
+        return getString(R.string.summary_order, name, addWhippedCream, addChocolate, numberOfCoffees, NumberFormat.getCurrencyInstance().format(price))
     }
 }

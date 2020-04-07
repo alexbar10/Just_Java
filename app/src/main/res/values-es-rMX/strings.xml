@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Just Java</string>
+    <string name="toppings">Ingredientes</string>
+    <string name="name">Nombre</string>
+    <string name="summary_order">Nombre: %1$s\nAgregar crema batida? %2$b\nAgregar chocolate? %3$b\nCantidad: %4$d  \nTotal: %5$s  \nGracias!</string>
+    <string name="quantity">Cantidad</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="order">ordenar</string>
+    <string name="whipped_cream">Crema batida</string>
+    <string name="subject_email_order">Solo cafe para %1$s</string>
+    <string name="message_unable_send_email">No es posible mandar el coreo</string>
+    <string name="message_increment_max_error">No es posible servir mas de 100 cafes</string>
+    <string name="message_increment_min_error">No es posible servir menos de 1 cafe</string>
+</resources>
