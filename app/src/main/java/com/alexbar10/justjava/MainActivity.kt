@@ -1,5 +1,6 @@
 package com.alexbar10.justjava
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -13,7 +14,7 @@ import java.text.NumberFormat
  */
 class MainActivity : AppCompatActivity() {
     // Global variable for quantity of coffees
-    private var numberOfCoffees = 98
+    private var numberOfCoffees = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,23 @@ class MainActivity : AppCompatActivity() {
      */
     fun submitOrder(view: View) {
         val price = calculatePrice(whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked)
-        displayMessage(createOrderSummary(price, whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked, name_edit_text.text.toString()))
+        val subject = "JustJava order for ${name_edit_text.text}"
+        val text = createOrderSummary(price, whipped_cream_check_box.isChecked, chocolate_checkbox.isChecked, name_edit_text.text.toString())
+
+        sendOrderToEmailWith(subject, text)
+    }
+
+    private fun sendOrderToEmailWith(subject: String, content: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            type = "*/*"
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, content)
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Unable to send email", Toast.LENGTH_LONG).show()
+        }
     }
 
     /**
@@ -34,14 +51,6 @@ class MainActivity : AppCompatActivity() {
     private fun displayQuantity(number: Int) {
         val quantityTextView = findViewById<TextView>(R.id.quantity_text_view)
         quantityTextView.text = number.toString()
-    }
-
-    /**
-     * This method displays the given price on the screen
-     */
-    private fun displayPrice(price: Int) {
-        val priceTextView = findViewById<TextView>(R.id.price_text_view)
-        priceTextView.text = NumberFormat.getCurrencyInstance().format(price)
     }
 
     /**
@@ -66,14 +75,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Can not serve less than one coffee", Toast.LENGTH_LONG).show()
         }
-    }
-
-    /**
-     * This method display the given text on the screen
-     */
-    private fun displayMessage(message: String) {
-        val priceTextView = findViewById<TextView>(R.id.price_text_view)
-        priceTextView.text = message
     }
 
     /**
